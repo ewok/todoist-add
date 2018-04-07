@@ -6,24 +6,27 @@ Quick-add Todoist tasks from the command line.
 td plant summer tomatoes @home #hobbies in two weeks
 ```
 
-Example:
-![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png)
+#### Example
+![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png =444x)
 
-Result:
-![Screenshot of Todoist UI showing the added task](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example2.png)
+#### Result
+![Screenshot of Todoist UI showing the added task](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example2.png =600x)
 
 
 See Todoist's [Quick Add syntax](https://support.todoist.com/hc/en-us/articles/115001745265) for details.
 
-*Note - it completely ignores flags, to give you a direct pipe to your Todoist.  Passing flags like --help will create a Todoist task "--help".  That's a feature, not a bug!*
+*Note - it completely ignores flags, to give you a direct pipe to your Todoist.
+As a result, `td --help me obi` will create a Todoist task including the --help.
+That's a feature, not a bug ;)*
 
 ## Installing
-On Windows, download [the executable](https://github.com/jeffgreenca/todoist-add/raw/master/dist/td.exe) and place it in your PATH.  Other platforms, alias the Python script or follow the build instructions for a binary.
+On Windows, download [the executable](https://github.com/jeffgreenca/todoist-add/raw/master/dist/td.exe) and place it in your PATH.  Otherwise, alias the `td.py` script or build your own.
 
-The first time you run the app, it will ask you for your API token.  Get this from Todoist by going to `Settings -> Integrations -> API token`.
+The first time you run the app, it will ask you for your API token.
+Get it from Todoist by going to `Settings -> Integrations -> API token`.
 
 ## Building
-If you need to build your own binary, and you have Python3 + pipenv installed, you can do this:
+If you need to build your own binary, and you have Python 3 + `pipenv` installed, you can do this:
 
 ```
 pipenv install --dev
