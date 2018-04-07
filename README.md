@@ -7,10 +7,10 @@ td plant summer tomatoes @home #hobbies in two weeks
 ```
 
 #### Example
-![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png =444x)
+![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png)
 
 #### Result
-![Screenshot of Todoist UI showing the added task](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example2.png =600x)
+![Screenshot of Todoist UI showing the added task](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example2.png)
 
 
 See Todoist's [Quick Add syntax](https://support.todoist.com/hc/en-us/articles/115001745265) for details.
