@@ -1,12 +1,17 @@
 # todoist-add
-Quick-add Todoist tasks from the command line.
+Quick Add Todoist tasks, from the command line.
 
 ## Usage:
 ```
-td plant summer tomatoes @home #hobbies in two weeks
+$td <task>
 ```
 
-#### Example
+For example, to add a task `plant summer tomatoes`, tag it with the label `@home`, assign it to the `#hobbies` project, and set the due date two weeks from now:
+```
+$td plant summer tomatoes @home #hobbies in two weeks
+```
+
+#### Visual Example
 ![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png)
 
 #### Result
@@ -22,8 +27,9 @@ That's a feature, not a bug ;)*
 ## Installing
 On Windows, download [the executable](https://github.com/jeffgreenca/todoist-add/raw/master/dist/td.exe) and place it in your PATH.  Otherwise, alias the `td.py` script or build your own.
 
-The first time you run the app, it will ask you for your API token.
-Get it from Todoist by going to `Settings -> Integrations -> API token`.
+The first time you run the app, it will ask you for your Todoist API token.  Obtain your personal token by logging in to your Todoist account and navigating to `Settings -> Integrations -> API token`.
+
+*Note - the app stores your token in a file under your user profile directory, `~/.todoist`.  Consider if this is sufficiently secure for your computing environment.
 
 ## Building
 If you need to build your own binary, and you have Python 3 + `pipenv` installed, you can do this:
