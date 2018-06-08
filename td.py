@@ -11,10 +11,6 @@ from pathlib import Path
 
 CONFIG_FILE = str(Path.home()) + '/.todoist'
 
-def pdot():
-  """Makeshift progress bar"""
-  print('.', end='', flush=True)
-
 # Configure
 try:
   with open(CONFIG_FILE, 'r') as f:
@@ -28,19 +24,14 @@ if len(sys.argv) > 1:
   # Consider the entire command line arguments as the task to add
   task = ' '.join(sys.argv[1:])
 
-  # These tasks take longer, so show a "progress" bar
-  pdot()
   from todoist import TodoistAPI
-  pdot()
   api = TodoistAPI(SECRET_KEY)
-  pdot()
   retval = api.quick.add(task)
-  pdot()
 
   # Quick add may "eat" some of the task, but not all
   # For example #myproject becomes a projectid field
   if retval and 'content' in retval.keys() and retval['content'] in task:
-    print("OK", end='')
+    pass
   else:
     print("Error!")
     pprint(retval)
