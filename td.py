@@ -1,43 +1,69 @@
 #!/usr/bin/python3
-# Todoist Quick Add CLI
-# jeffgreenca 2018
-#
-# A single-purpose tool to enable quick-add Todoist entries from the command line.
-#
-# Requires todoist-python
-import sys
-from pprint import pprint
+from todoist import TodoistAPI
 from pathlib import Path
+from getpass import getpass
+from pprint import pformat
+import sys
 
-CONFIG_FILE = str(Path.home()) + '/.todoist'
 
-# Configure
-try:
-  with open(CONFIG_FILE, 'r') as f:
-    SECRET_KEY = f.read()
-except FileNotFoundError:
-  SECRET_KEY = input("Enter your API token (will be saved to %s): " % CONFIG_FILE)
-  with open(CONFIG_FILE, 'w') as f:
-    f.write(SECRET_KEY)
+class TD:
+    store = Path.home().joinpath(".todoist")
+    verbose = False
 
-if len(sys.argv) > 1:
-  # Consider the entire command line arguments as the task to add
-  task = ' '.join(sys.argv[1:])
+    def __init__(self):
+        token, fromfile = self._load_token()
+        if not fromfile:
+            # on first run, give the user more feedback
+            self.verbose = True
+        self._api = TodoistAPI(token)
 
-  from todoist import TodoistAPI
-  api = TodoistAPI(SECRET_KEY)
-  retval = api.quick.add(task)
+    def _load_token(self):
+        """Load API token from file or user"""
+        if self.store.exists():
+            with open(self.store, "r") as f:
+                return f.read().strip(), True
+        else:
+            return self._init_token(), False
 
-  # Quick add may "eat" some of the task, but not all
-  # For example #myproject becomes a projectid field
-  if retval and 'content' in retval.keys() and retval['content'] in task:
-    pass
-  else:
-    print("Error!")
-    pprint(retval)
-else:
-  print("Todoist Quick Add Task, jeffgreenca 2018\n")
-  print("Usage: %s <task in quick add syntax>\n" % sys.argv[0])
-  print("Example:")
-  print("  %s remember to get milk tomorrow #errands @walking p1" % sys.argv[0])
-  print("\nExpects Todoist API token in ~/.todoist (or prompts to create it)")
+    def _init_token(self):
+        token = getpass("Todoist API token: ")
+        if not token:
+            raise Exception("API token is required.")
+        with open(self.store, "w") as f:
+            f.write(token)
+        print("Saved to %s, please check permissions are secure." % self.store)
+        return token
+
+    def add(self, task):
+        retval = self._api.quick.add(task)
+        # Validate return value
+        # Original input string may be truncated,
+        # for example #myproject becomes a projectid field
+        if retval and retval.get("content", "\x00") in task:
+            if self.verbose:
+                print("Added task to Todoist successfully.")
+        else:
+            raise Exception("Error: " + pformat(retval))
+
+
+def main(args):
+    """Todoist Quick-Add Task CLI, jeffgreenca
+
+    Usage:
+        $ td <task>
+
+    Uses "quick add" syntax:
+        $ td pickup milk tomorrow #errands @walking p1
+
+    Persists API token in ~/.token, so be sure to secure it.
+    """
+    item = " ".join(args)
+    t = TD()
+    t.add(item)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2 or sys.argv[1] in ["-h", "--help"]:
+        print(main.__doc__)
+    else:
+        main(sys.argv[1:])
