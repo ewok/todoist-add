@@ -13,7 +13,8 @@ class TD:
     def __init__(self):
         token, fromfile = self._load_token()
         if not fromfile:
-            # on first run, give the user more feedback
+            # if prompting for token, already interactive, so
+            # show confirmation if the task is added.
             self.verbose = True
         self._api = TodoistAPI(token)
 
@@ -39,21 +40,20 @@ class TD:
         # Validate return value
         # Original input string may be truncated,
         # for example #myproject becomes a projectid field
-        if retval and retval.get("content", "\x00") in task:
-            if self.verbose:
-                print("Added task to Todoist successfully.")
-        else:
+        if not retval or not retval.get("content", "\x00") in task:
             raise Exception("Error: " + pformat(retval))
+        if self.verbose:
+            print("Added task to Todoist successfully.")
 
 
 def main(args):
     """Todoist Quick-Add Task CLI, jeffgreenca
 
-    Usage:
-        $ td <task>
+        Usage:
+            $ td <task>
 
-    Uses "quick add" syntax:
-        $ td pickup milk tomorrow #errands @walking p1
+        Uses "quick add" syntax:
+            $ td pickup milk tomorrow #errands @walking p1
 
     Persists API token in ~/.token, so be sure to secure it.
     """
