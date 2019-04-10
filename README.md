@@ -17,10 +17,10 @@ $ td plant summer tomatoes @home #hobbies in two weeks
 > See Todoist's [Task Quick Add syntax](https://support.todoist.com/hc/en-us/articles/115001745265)
 
 #### Visual Example
-![Screenshot of running the usage command in a Command Prompt window](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example1.png)
+![Screenshot of running the usage command in a Command Prompt window](./screenshots/example1.png)
 
 #### Result
-![Screenshot of Todoist UI showing the added task](https://github.com/jeffgreenca/todoist-add/raw/master/examples/example2.png)
+![Screenshot of Todoist UI showing the added task](./screenshots/example2.png)
 
 ## Installation
 Build an executable and place it in your path.
@@ -35,7 +35,7 @@ pipenv run pyinstaller --onefile td.py
 
 ## Why?
 
-> Probably just use [sachaos/todoist](https://github.com/sachaos/todoist)
+> Probably just use this instead: [sachaos/todoist](https://github.com/sachaos/todoist)
 
 However, if you insist, here are two justifications:
 
