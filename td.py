@@ -55,7 +55,7 @@ def main(args):
         Uses "quick add" syntax:
             $ td pickup milk tomorrow #errands @walking p1
 
-    Persists API token in ~/.token, so be sure to secure it.
+    Persists API token in ~/.todoist, so be sure to secure it.
     """
     item = " ".join(args)
     t = TD()
